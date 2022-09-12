@@ -1,0 +1,11 @@
+{
+  "name": "babelconfig",
+  "version": "0.0.1",
+  "main": "babel.config.js",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/preset-env": "^7.19.0",
+    "@babel/preset-typescript": "^7.18.6"
+  }
+}
