@@ -1,12 +1,14 @@
-const presets = [ [
+const presets = [
+  [
     "@babel/preset-env",
     {
-      "targets": {
-        "node": "14.17"
-      }
-    }
+      targets: {
+        node: "18",
+      },
+    },
   ],
-  "@babel/preset-typescript" ];
-const plugins = [ "@babel/plugin-transform-runtime" ];
+  "@babel/preset-typescript",
+];
+const plugins = ["@babel/plugin-transform-runtime"];
 
 module.exports = { presets, plugins };
