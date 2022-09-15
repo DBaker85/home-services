@@ -38,17 +38,17 @@
     "@types/koa-router": "^7.4.4",
     "@types/node": "^16.9.1",
     "@types/prompts": "^2.0.14",
+    "babelconfig": "*",
+    "config": "*",
     "fs-extra": "^10.0.0",
     "husky": "^7.0.0",
     "nodemon": "^2.0.12",
     "prettier": "^2.4.1",
     "pretty-quick": "^3.1.1",
     "prompts": "^2.4.1",
+    "secrets": "*",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.3",
-    "babelconfig": "*",
-    "config": "*",
     "tsconfig": "*",
-    "secrets": "*"
+    "typescript": "^4.4.3"
   }
 }

@@ -35,15 +35,15 @@
     "@types/node": "15.12.2",
     "@types/node-fetch": "2.5.10",
     "@types/prompts": "2.0.12",
+    "babelconfig": "*",
+    "config": "*",
     "husky": "6.0.0",
     "nodemon": "2.0.7",
     "prettier": "2.3.1",
     "pretty-quick": "3.1.0",
+    "secrets": "*",
     "ts-node": "10.0.0",
-    "typescript": "4.3.5",
-    "babelconfig": "*",
-    "config": "*",
     "tsconfig": "*",
-    "secrets": "*"
+    "typescript": "4.3.5"
   }
 }

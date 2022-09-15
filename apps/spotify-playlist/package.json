@@ -24,7 +24,7 @@
     "babelconfig": "*",
     "config": "*",
     "nodemon": "^2.0.19",
-    "tsconfig": "*",
-    "secrets": "*"
+    "secrets": "*",
+    "tsconfig": "*"
   }
 }
