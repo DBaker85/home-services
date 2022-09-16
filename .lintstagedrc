@@ -9,5 +9,8 @@
   ],
   "*.json": [
     "prettier --write"
+  ],
+  "scripts/**/*.{ts}": [
+    "prettier --write"
   ]
 }

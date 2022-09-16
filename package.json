@@ -12,9 +12,11 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
-    "setup:secrets": "ts-node --skip-project scripts/create-config.ts"
+    "setup:secrets": "ts-node-esm --project packages/tsconfig/ts-node.json scripts/create-config.ts"
   },
   "devDependencies": {
+    "@types/prettier": "^2.7.0",
+    "chalk": "^5.0.1",
     "eslint-config-custom": "*",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
@@ -26,5 +28,9 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "packageManager": "yarn@3.2.3"
+  "packageManager": "yarn@3.2.3",
+  "dependencies": {
+    "typescript": "^4.8.3"
+  },
+  "type": "module"
 }
