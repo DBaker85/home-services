@@ -4,6 +4,6 @@
   "private": true,
   "files": [
     "base.json",
-    "ts-node.json"
+    "build-scripts.json"
   ]
 }
