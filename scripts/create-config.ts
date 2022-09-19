@@ -49,6 +49,11 @@ const spotifyPrompts: PromptObject[] = [
   },
   {
     type: "text",
+    name: "userId",
+    message: "Enter user id",
+  },
+  {
+    type: "text",
     name: "dailyDriveId",
     message: "Enter daily drive id",
   },
@@ -117,6 +122,7 @@ const initial: PromptObject[] = [
         })
       );
     }
+
     process.exit(0);
   } catch {
     process.exit(1);

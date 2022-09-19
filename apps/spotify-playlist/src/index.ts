@@ -1,66 +1,93 @@
-import * as dotenv from "dotenv";
-import { clientId, clientSecret, dailyDriveId } from "secrets/spotify";
+// import { readJSON, writeJSON, pathExists } from "fs-extra";
+import { resolve } from "path";
+import Koa from "koa";
+import KoaRouter from "koa-router";
+import serve from "koa-static";
+import { compileFile } from "pug";
+import chalk from "chalk";
 
-import { Playlist } from "./types/spotify/playlist";
+import {
+  clientId,
+  // clientSecret, dailyDriveId, userId
+} from "secrets/spotify";
+import SpotifyWebApi from "spotify-web-api-node";
 
-dotenv.config();
+// import { Playlist } from "./types/spotify/playlist";
 
-// // your application requests authorization
-// var authOptions = {
-//   url: 'https://accounts.spotify.com/api/token',
-//   headers: {
-//     'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-//   },
-//   form: {
-//     grant_type: 'client_credentials'
-//   },
-//   json: true
-// };
+// const playlistPath = resolve(process.cwd(), "playlist.json");
 
-// fetch(authOptions, function(error, response, body) {
-//   if (!error && response.statusCode === 200) {
+const scopes = [
+  "playlist-modify-public",
+  " playlist-read-private",
+  "playlist-modify-private",
+];
+const redirectUri = "http://localhost:5888/callback";
+const state = "";
 
-//     // use the access token to access the Spotify Web API
-//     var token = body.access_token;
-//     var options = {
-//       url: 'https://api.spotify.com/v1/users/jmperezperez',
-//       headers: {
-//         'Authorization': 'Bearer ' + token
-//       },
-//       json: true
-//     };
-//     request.get(options, function(error, response, body) {
-//       console.log(body);
-//     });
+console.log(resolve(__dirname, "index.pug"));
+
+const app = new Koa();
+const router = new KoaRouter();
+
+const compiledFunction = compileFile(resolve(__dirname, "index.pug"));
+
+// Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
+const spotifyApi = new SpotifyWebApi({
+  redirectUri,
+  clientId,
+});
+
+// Create the authorization URL
+const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+
+router.get("callback", "/callback", async (context) => {
+  console.log(context);
+});
+
+router.get("root", "/", async (context) => {
+  context.body = compiledFunction({ authorizeURL });
+});
+
+app.use(router.routes()).use(router.allowedMethods());
+app.use(serve(resolve(__dirname, "public"), { gzip: true }));
+
+app.listen(5888);
+console.log(`
+App running on port : ${chalk.green("5888")}
+`);
+console.log("click the link to open:");
+console.log(
+  `
+  ${chalk.blue("http://localhost:5888")}
+
+  `
+);
+
+// const getData = async (): Promise<void> => {
+//   try {
+//     // let playlistID;
+//     // const playlistExists = await pathExists(playlistPath)
+//     // console.log({playlistExists})
+//     // if (playlistExists){
+//     //   console.log('reading file')
+//     //   const playlistData = await readJSON(playlistPath)
+//     //   playlistID = playlistData.playlistID;
+//     // }
+//     // if (!playlistExists) {
+//     //   console.log('creating playlist')
+//     //   writeJSON(playlistPath,{playlistID})
+//     // }
+//   } catch (err) {
+//     console.error(err);
 //   }
-// });
+// };
+// authenticate()
+//   .then(() => console.log("done"))
+//   .catch((err) => console.log(err));
 
-const getData = async (): Promise<void> => {
-  const authResponse = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    body: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Basic " +
-        Buffer.from(clientId + ":" + clientSecret).toString("base64"),
-    },
-  });
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { access_token } = await authResponse.json();
-
-  const playlistResponse = await fetch(
-    `https://api.spotify.com/v1/playlists/${dailyDriveId}`,
-    {
-      headers: {
-        Authorization: "Bearer " + (access_token as string),
-      },
-    }
-  );
-  const playlist = (await playlistResponse.json()) as Playlist;
-
-  console.log(playlist);
-};
-getData()
-  .then(() => console.log("done"))
-  .catch((err) => console.log(err));
+// auth
+// check for existingplaylist.json
+// if !exists then create
+// give nice image?
+// dowload dailydrive
+// upload filtered playlist to cool playlist
