@@ -24,12 +24,14 @@ const scopes = [
 const redirectUri = "http://localhost:5888/callback";
 const state = "";
 
-console.log(resolve(__dirname, "index.pug"));
-
 const app = new Koa();
 const router = new KoaRouter();
 
-const compiledFunction = compileFile(resolve(__dirname, "index.pug"));
+const compiledIndex = compileFile(resolve(__dirname, "views", "index.pug"));
+const compiledError = compileFile(resolve(__dirname, "views", "error.pug"));
+const compiledSuccess = compileFile(resolve(__dirname, "views", "success.pug"));
+
+console.log(compiledSuccess(), compiledError());
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
 const spotifyApi = new SpotifyWebApi({
@@ -40,12 +42,26 @@ const spotifyApi = new SpotifyWebApi({
 // Create the authorization URL
 const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
 
-router.get("callback", "/callback", async (context) => {
-  console.log(context);
+router.get("root", "/", async (context) => {
+  context.body = compiledIndex({ authorizeURL });
 });
 
-router.get("root", "/", async (context) => {
-  context.body = compiledFunction({ authorizeURL });
+router.get("success", "/success", async (context) => {
+  context.body = compiledSuccess();
+});
+router.get("error", "/error", async (context) => {
+  context.body = compiledError();
+});
+
+router.get("callback", "/callback", async ({ query, response, router }) => {
+  if (query?.error === "access_denied") {
+    response.redirect("error");
+  }
+
+  if (query?.code !== "") {
+    // exec the stuff here
+    response.redirect("success");
+  }
 });
 
 app.use(router.routes()).use(router.allowedMethods());
