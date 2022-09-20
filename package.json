@@ -7,16 +7,19 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky install",
-    "setup:secrets": "ts-node-esm --project packages/tsconfig/build-scripts.json scripts/create-config.ts"
+    "prepare": "npm install pm2@latest -g && husky install",
+    "postinstall": "yarn run prepare",
+    "setup:secrets": "ts-node-esm --project packages/tsconfig/build-scripts.json scripts/create-config.ts",
+    "start": "yarn run build && pm2 start ecosystem.config.js"
   },
   "devDependencies": {
+    "@types/node": "^18.7.18",
     "@types/prettier": "^2.7.0",
-    "chalk": "^5.0.1",
+    "chalk": "4.1.0",
     "eslint-config-custom": "*",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
@@ -31,6 +34,5 @@
   "packageManager": "yarn@3.2.3",
   "dependencies": {
     "typescript": "^4.8.3"
-  },
-  "type": "module"
+  }
 }
