@@ -3,4 +3,5 @@ extends base.pug
 block content
   section.section
     .container(class="is-flex is-align-items-center is-justify-content-center is-flex-direction-column")
-      div No
+      .notification.is-danger.is-light #{errorMsg}
+      a.button.is-primary(href='/') Try again

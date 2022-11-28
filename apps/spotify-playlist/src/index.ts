@@ -5,10 +5,12 @@ import KoaRouter from "koa-router";
 import serve from "koa-static";
 import { compileFile } from "pug";
 import chalk from "chalk";
+import { stringify } from "query-string";
 
 import {
   clientId,
-  // clientSecret, dailyDriveId, userId
+  clientSecret,
+  // dailyDriveId, userId
 } from "secrets/spotify";
 import SpotifyWebApi from "spotify-web-api-node";
 
@@ -37,31 +39,59 @@ console.log(compiledSuccess(), compiledError());
 const spotifyApi = new SpotifyWebApi({
   redirectUri,
   clientId,
+  clientSecret,
 });
 
 // Create the authorization URL
 const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
 
-router.get("root", "/", async (context) => {
-  context.body = compiledIndex({ authorizeURL });
-});
-
 router.get("success", "/success", async (context) => {
   context.body = compiledSuccess();
 });
 router.get("error", "/error", async (context) => {
-  context.body = compiledError();
+  let errorMsg = "Something went wrong, please try again";
+
+  if (context.query?.error === "access_denied") {
+    errorMsg = "App Authentication failed, please try again";
+  }
+
+  context.body = compiledError({ errorMsg });
 });
 
-router.get("callback", "/callback", async ({ query, response, router }) => {
-  if (query?.error === "access_denied") {
-    response.redirect("error");
-  }
+router.get("callback", "/callback", async (context) => {
+  if (context.query?.error === "access_denied") {
+    const queryString = stringify({
+      error: "access_denied",
+    });
+    context.response.redirect(`/error?${queryString}`);
+  } else if (context.query?.code !== undefined) {
+    const code = context.query?.code;
 
-  if (query?.code !== "") {
     // exec the stuff here
-    response.redirect("success");
+    // crontab here?
+    spotifyApi.authorizationCodeGrant(code as string).then(
+      function (data) {
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        console.log("The token expires in " + data.body.expires_in);
+        console.log("The access token is " + data.body.access_token);
+        console.log("The refresh token is " + data.body.refresh_token);
+
+        // Set the access token on the API object to use it in later calls
+        spotifyApi.setAccessToken(data.body.access_token);
+        spotifyApi.setRefreshToken(data.body.refresh_token);
+      },
+      function (err) {
+        console.log("Something went wrong!", err);
+      }
+    );
+    context.response.redirect("success");
+  } else {
+    context.response.redirect("error");
   }
+});
+
+router.get("root", "/", async (context) => {
+  context.body = compiledIndex({ authorizeURL });
 });
 
 app.use(router.routes()).use(router.allowedMethods());
@@ -78,28 +108,6 @@ console.log(
 
   `
 );
-
-// const getData = async (): Promise<void> => {
-//   try {
-//     // let playlistID;
-//     // const playlistExists = await pathExists(playlistPath)
-//     // console.log({playlistExists})
-//     // if (playlistExists){
-//     //   console.log('reading file')
-//     //   const playlistData = await readJSON(playlistPath)
-//     //   playlistID = playlistData.playlistID;
-//     // }
-//     // if (!playlistExists) {
-//     //   console.log('creating playlist')
-//     //   writeJSON(playlistPath,{playlistID})
-//     // }
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-// authenticate()
-//   .then(() => console.log("done"))
-//   .catch((err) => console.log(err));
 
 // auth
 // check for existingplaylist.json
