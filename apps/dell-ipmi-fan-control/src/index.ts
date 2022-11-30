@@ -6,7 +6,7 @@ import { concatMap } from "rxjs/operators";
 import ora from "ora";
 import { cyan, green, red, yellowBright } from "chalk";
 
-import { manualMode, fanSpeed80, autoMode, fan3Speed10 } from "./ipmiCommands";
+import { manualMode, fanSpeed90, autoMode, fan3Speed10 } from "./ipmiCommands";
 import { getHighestTemp } from "./utils";
 
 import { ip, user, password } from "secrets/ipmi";
@@ -27,7 +27,7 @@ await (async () => {
     );
     console.log(`Setting ${cyan("Fans")} to ${green("15%")}`);
     execSync(
-      `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${fanSpeed80}`
+      `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${fanSpeed90}`
     );
     console.log(`Setting ${cyan("Fan 5")} to ${green("1%")}`);
     execSync(
@@ -73,7 +73,7 @@ await (async () => {
             );
             console.log(`Setting ${cyan("fans")} to ${green("15%")}`);
             execSync(
-              `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${fanSpeed80}`
+              `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${fanSpeed90}`
             );
             console.log(`Setting ${cyan("fan 5")} to ${green("1%")}`);
             execSync(
