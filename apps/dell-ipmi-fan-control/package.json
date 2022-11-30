@@ -1,6 +1,6 @@
 {
   "name": "dell-ipmi-fan-control",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Fan control program",
   "main": "index.js",
   "scripts": {
