@@ -6,6 +6,7 @@
     "apps/*",
     "packages/*"
   ],
+  "type": "module",
   "scripts": {
     "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
@@ -14,7 +15,7 @@
     "prepare": "npm install pm2@latest -g && husky install",
     "postinstall": "yarn run prepare",
     "setup:secrets": "ts-node-esm --project packages/tsconfig/build-scripts.json scripts/create-config.ts",
-    "start": "yarn run build && pm2 start ecosystem.config.js"
+    "start": "yarn run build && pm2 start ecosystem.config.cjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.2",

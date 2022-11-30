@@ -17,7 +17,7 @@ let automode = "on";
 let sendingCommands = false;
 const spinner = ora("Begin monitoring");
 
-await (async () => {
+(() => {
   try {
     console.log(`Config found, Initializing control`);
     sendingCommands = true;

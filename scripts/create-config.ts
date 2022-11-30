@@ -21,7 +21,7 @@ const ipmiPrompts: PromptObject[] = [
     message: "Enter your ipmi user name",
   },
   {
-    type: "text",
+    type: "password",
     name: "IpmiPassword",
     message: "Enter your Ipmi password",
   },
@@ -72,7 +72,7 @@ const initial: PromptObject[] = [
 
     if (apps.includes(AppName.ipmi)) {
       console.log(`
-      Setting up ${chalk.bgYellow("Ipmi")} credentials
+      Setting up ${chalk.bgGray("Ipmi")} credentials
       `);
       const ipmiResp = await prompts(ipmiPrompts);
       await fsx.writeFile(
