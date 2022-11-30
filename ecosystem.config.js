@@ -7,10 +7,6 @@ module.exports = {
     name: "power-monitor",
     script: 'apps/dell-ipmi-power-monitor/dist/index.js',
     watch: '.'
-  },{
-    name: "spotify-playlist",
-    script: 'apps/spotify-playlist/dist/index.js',
-    watch: '.'
   }],
 
  
