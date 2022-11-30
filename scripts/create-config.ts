@@ -12,17 +12,17 @@ enum AppName {
 const ipmiPrompts: PromptObject[] = [
   {
     type: "text",
-    name: "IpmiIp",
+    name: "ip",
     message: `Enter the ip adress for ipmi control`,
   },
   {
     type: "text",
-    name: "IpmiUser",
+    name: "user",
     message: "Enter your ipmi user name",
   },
   {
     type: "password",
-    name: "IpmiPassword",
+    name: "password",
     message: "Enter your Ipmi password",
   },
 ];
@@ -30,7 +30,7 @@ const ipmiPrompts: PromptObject[] = [
 const glancesPrompts: PromptObject[] = [
   {
     type: "text",
-    name: "glancesIp",
+    name: "ip",
     message: `Enter the ip adress of your glances web instance`,
   },
 ];
