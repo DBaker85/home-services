@@ -42,7 +42,7 @@ export const createFanSpeedCommand = ({
   fanNumber: FanNumber;
   speed: number;
 }): string =>
-  `${ipmiCommand} ${fanCommand} 0x02 ${fanNumber} ${fanSpeedToHex(speed)}`;
+  `${ipmiCommand} ${fanCommand} 0x02 ${fanNumber} 0x${fanSpeedToHex(speed)}`;
 
 export const autoModeCommand = `${ipmiCommand} ${manualMode}`;
 
