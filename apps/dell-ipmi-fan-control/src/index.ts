@@ -1,20 +1,32 @@
-import { execSync } from "child_process";
+import { execSync, exec as ChildExec } from "child_process";
 import fetch from "node-fetch";
+import util from "util";
 
 import { timer } from "rxjs";
 import { concatMap } from "rxjs/operators";
 import ora from "ora";
-import { cyan, green, red, yellowBright } from "chalk";
+import { cyan, green, red } from "chalk";
 
-import { manualMode, fanSpeed90, autoMode, fan3Speed10 } from "./ipmiCommands";
+import {
+  manualModeCommand,
+  createFanSpeedCommand,
+  FanNumber,
+  ambientTempCommand,
+} from "./ipmiCommands";
 import { getHighestTemp } from "./utils";
 
-import { ip, user, password } from "secrets/ipmi";
 import { ip as glancesIp } from "secrets/glances";
 
-const tempThreshold = 60;
-let automode = "on";
+const exec = util.promisify(ChildExec);
+
+const cpuThreshold = 60;
+let cpuHotAlert = false;
+
+const ambientThreshold = 40;
+let ambientHotAlert = false;
+
 let sendingCommands = false;
+
 const spinner = ora("Begin monitoring");
 
 (() => {
@@ -22,19 +34,22 @@ const spinner = ora("Begin monitoring");
     console.log(`Config found, Initializing control`);
     sendingCommands = true;
     console.log(`Setting ${cyan("Manual")} mode`);
+    execSync(manualModeCommand);
+    console.log(`Setting ${cyan("Fans")} to ${green("70%")}`);
     execSync(
-      `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${manualMode}`
+      createFanSpeedCommand({
+        fanNumber: FanNumber.ALL,
+        speed: 70,
+      })
     );
-    console.log(`Setting ${cyan("Fans")} to ${green("15%")}`);
+    console.log(`Setting ${cyan("Fan 3")} to ${green("5%")}`);
     execSync(
-      `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${fanSpeed90}`
-    );
-    console.log(`Setting ${cyan("Fan 5")} to ${green("1%")}`);
-    execSync(
-      `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${fan3Speed10}`
+      createFanSpeedCommand({
+        fanNumber: FanNumber.NIDEC_THREE,
+        speed: 5,
+      })
     );
 
-    automode = "off";
     sendingCommands = false;
     spinner.start();
     timer(1, 5000)
@@ -45,42 +60,97 @@ const spinner = ora("Begin monitoring");
           });
           const json = await res.json();
 
-          return getHighestTemp(json);
+          const response = await exec(ambientTempCommand);
+          const ambientTemp = +response.stdout;
+
+          return { cpuTemp: getHighestTemp(json), ambientTemp };
         })
       )
-      .subscribe((temp: number) => {
+      .subscribe(({ cpuTemp, ambientTemp }) => {
         if (!sendingCommands) {
-          if (automode === "off" && temp > tempThreshold) {
+          if (!cpuHotAlert && cpuTemp > cpuThreshold) {
+            console.log(`Cpu threshold ${red("Exceeded")}, ramping up fans`);
+            cpuHotAlert = true;
+            sendingCommands = true;
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NIDEC_THREE,
+                speed: 50,
+              })
+            );
+            sendingCommands = false;
+          }
+
+          if (!ambientHotAlert && ambientTemp > ambientThreshold) {
             console.log(
-              `Threshold ${red("Exceeded")}, setting ${yellowBright(
-                "Auto"
+              `Ambient threshold ${red("Exceeded")}, ramping up fans`
+            );
+            ambientHotAlert = true;
+            sendingCommands = true;
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.ALL,
+                speed: 100,
+              })
+            );
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NIDEC_THREE,
+                speed: 30,
+              })
+            );
+            sendingCommands = false;
+          }
+
+          if (ambientHotAlert && cpuTemp < cpuThreshold) {
+            console.log(
+              `Ambient temperatures within safe limits, setting ${cyan(
+                "Idle"
               )} mode`
             );
             sendingCommands = true;
+            execSync(manualModeCommand);
+            console.log(`Setting ${cyan("Fans")} to ${green("70%")}`);
             execSync(
-              `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${autoMode}`
+              createFanSpeedCommand({
+                fanNumber: FanNumber.ALL,
+                speed: 70,
+              })
             );
-            automode = "on";
+            console.log(`Setting ${cyan("Fan 3")} to ${green("5%")}`);
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NIDEC_THREE,
+                speed: 5,
+              })
+            );
+            ambientHotAlert = false;
             sendingCommands = false;
           }
-          if (automode === "on" && temp < tempThreshold) {
+
+          if (cpuHotAlert && cpuTemp < cpuThreshold) {
             console.log(
-              `Temperatures within safe limits, setting ${cyan("Manual")} mode`
+              `Cpu temperatures within safe limits, setting ${cyan(
+                "Idle"
+              )} mode`
             );
             sendingCommands = true;
+            execSync(manualModeCommand);
+            console.log(`Setting ${cyan("Fans")} to ${green("70%")}`);
             execSync(
-              `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${manualMode}`
+              createFanSpeedCommand({
+                fanNumber: FanNumber.ALL,
+                speed: 70,
+              })
             );
-            console.log(`Setting ${cyan("fans")} to ${green("15%")}`);
+            console.log(`Setting ${cyan("Fan 3")} to ${green("5%")}`);
             execSync(
-              `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${fanSpeed90}`
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NIDEC_THREE,
+                speed: 5,
+              })
             );
-            console.log(`Setting ${cyan("fan 5")} to ${green("1%")}`);
-            execSync(
-              `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} ${fan3Speed10}`
-            );
-
-            automode = "off";
+            cpuHotAlert = false;
             sendingCommands = false;
           }
         }

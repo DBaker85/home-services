@@ -11,3 +11,6 @@ export const getHighestTemp = (json: Glances): number => {
 
   return isFinite(maxValue) ? maxValue : 0;
 };
+
+export const fanSpeedToHex = (percent: number): string =>
+  percent.toString(16).padStart(2, "0");
