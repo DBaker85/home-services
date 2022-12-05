@@ -89,16 +89,29 @@ const spinner = ora("Begin monitoring");
             sendingCommands = true;
             execSync(
               createFanSpeedCommand({
-                fanNumber: FanNumber.ALL,
+                fanNumber: FanNumber.NOCTUA_ONE,
                 speed: 100,
               })
             );
             execSync(
               createFanSpeedCommand({
-                fanNumber: FanNumber.NIDEC_THREE,
-                speed: 30,
+                fanNumber: FanNumber.NOCTUA_FIVE,
+                speed: 100,
               })
             );
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_TWO,
+                speed: 100,
+              })
+            );
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_FOUR,
+                speed: 100,
+              })
+            );
+
             sendingCommands = false;
           }
 
