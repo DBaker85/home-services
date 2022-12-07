@@ -6040,6 +6040,12 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
+"logging@workspace:packages/logging":
+  version: 0.0.0-use.local
+  resolution: "logging@workspace:packages/logging"
+  languageName: unknown
+  linkType: soft
+
 "lowercase-keys@npm:^1.0.0, lowercase-keys@npm:^1.0.1":
   version: 1.0.1
   resolution: "lowercase-keys@npm:1.0.1"

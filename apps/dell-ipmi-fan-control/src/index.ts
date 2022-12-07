@@ -1,29 +1,23 @@
-import { execSync, exec as ChildExec } from "child_process";
+import { execSync } from "child_process";
 import fetch from "node-fetch";
-import util from "util";
 
 import { timer } from "rxjs";
 import { concatMap } from "rxjs/operators";
 import ora from "ora";
 import { cyan, green, red } from "chalk";
 
+import { ip as glancesIp } from "secrets/glances";
+import { errorLogger } from "logging";
+
 import {
   manualModeCommand,
   createFanSpeedCommand,
   FanNumber,
-  ambientTempCommand,
 } from "./ipmiCommands";
 import { getHighestTemp } from "./utils";
 
-import { ip as glancesIp } from "secrets/glances";
-
-const exec = util.promisify(ChildExec);
-
 const cpuThreshold = 60;
 let cpuHotAlert = false;
-
-const ambientThreshold = 40;
-let ambientHotAlert = false;
 
 let sendingCommands = false;
 
@@ -52,6 +46,7 @@ const spinner = ora("Begin monitoring");
 
     sendingCommands = false;
     spinner.start();
+
     timer(1, 5000)
       .pipe(
         concatMap(async () => {
@@ -59,14 +54,10 @@ const spinner = ora("Begin monitoring");
             method: "GET",
           });
           const json = await res.json();
-
-          const response = await exec(ambientTempCommand);
-          const ambientTemp = +response.stdout;
-
-          return { cpuTemp: getHighestTemp(json), ambientTemp };
+          return { cpuTemp: getHighestTemp(json) };
         })
       )
-      .subscribe(({ cpuTemp, ambientTemp }) => {
+      .subscribe(({ cpuTemp }) => {
         if (!sendingCommands) {
           if (!cpuHotAlert && cpuTemp > cpuThreshold) {
             console.log(`Cpu threshold ${red("Exceeded")}, ramping up fans`);
@@ -75,69 +66,9 @@ const spinner = ora("Begin monitoring");
             execSync(
               createFanSpeedCommand({
                 fanNumber: FanNumber.NIDEC_THREE,
-                speed: 50,
+                speed: 60,
               })
             );
-            sendingCommands = false;
-          }
-
-          if (!ambientHotAlert && ambientTemp > ambientThreshold) {
-            console.log(
-              `Ambient threshold ${red("Exceeded")}, ramping up fans`
-            );
-            ambientHotAlert = true;
-            sendingCommands = true;
-            execSync(
-              createFanSpeedCommand({
-                fanNumber: FanNumber.NOCTUA_ONE,
-                speed: 100,
-              })
-            );
-            execSync(
-              createFanSpeedCommand({
-                fanNumber: FanNumber.NOCTUA_FIVE,
-                speed: 100,
-              })
-            );
-            execSync(
-              createFanSpeedCommand({
-                fanNumber: FanNumber.NOCTUA_TWO,
-                speed: 100,
-              })
-            );
-            execSync(
-              createFanSpeedCommand({
-                fanNumber: FanNumber.NOCTUA_FOUR,
-                speed: 100,
-              })
-            );
-
-            sendingCommands = false;
-          }
-
-          if (ambientHotAlert && cpuTemp < cpuThreshold) {
-            console.log(
-              `Ambient temperatures within safe limits, setting ${cyan(
-                "Idle"
-              )} mode`
-            );
-            sendingCommands = true;
-            execSync(manualModeCommand);
-            console.log(`Setting ${cyan("Fans")} to ${green("70%")}`);
-            execSync(
-              createFanSpeedCommand({
-                fanNumber: FanNumber.ALL,
-                speed: 70,
-              })
-            );
-            console.log(`Setting ${cyan("Fan 3")} to ${green("5%")}`);
-            execSync(
-              createFanSpeedCommand({
-                fanNumber: FanNumber.NIDEC_THREE,
-                speed: 5,
-              })
-            );
-            ambientHotAlert = false;
             sendingCommands = false;
           }
 
@@ -148,14 +79,6 @@ const spinner = ora("Begin monitoring");
               )} mode`
             );
             sendingCommands = true;
-            execSync(manualModeCommand);
-            console.log(`Setting ${cyan("Fans")} to ${green("70%")}`);
-            execSync(
-              createFanSpeedCommand({
-                fanNumber: FanNumber.ALL,
-                speed: 70,
-              })
-            );
             console.log(`Setting ${cyan("Fan 3")} to ${green("5%")}`);
             execSync(
               createFanSpeedCommand({
@@ -169,7 +92,7 @@ const spinner = ora("Begin monitoring");
         }
       });
   } catch (err) {
-    console.error(err);
+    errorLogger({ err, appName: "dell-ipmi-fan-control" });
     spinner.fail(err as string);
     process.exit(1);
   }

@@ -62,10 +62,10 @@ const initial: PromptObject[] = [
       `);
       const glancesResp = await prompts(glancesPrompts);
       await fsx.writeFile(
-        resolve("packages", "secrets", "glances.local.json"),
-        prettier.format(JSON.stringify(glancesResp), {
+        resolve("packages", "secrets", "glances.js"),
+        prettier.format(` module.exports = ${JSON.stringify(glancesResp)}`, {
           ...prettierConfig,
-          parser: "json",
+          parser: "babel",
         })
       );
     }
@@ -76,10 +76,10 @@ const initial: PromptObject[] = [
       `);
       const ipmiResp = await prompts(ipmiPrompts);
       await fsx.writeFile(
-        resolve("packages", "secrets", "ipmi.local.json"),
-        prettier.format(JSON.stringify(ipmiResp), {
+        resolve("packages", "secrets", "ipmi.js"),
+        prettier.format(` module.exports = ${JSON.stringify(ipmiResp)}`, {
           ...prettierConfig,
-          parser: "json",
+          parser: "babel",
         })
       );
     }

@@ -1,0 +1,9 @@
+{
+  "name": "logging",
+  "version": "0.0.1",
+  "private": true,
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ]
+}

@@ -48,4 +48,4 @@ export const autoModeCommand = `${ipmiCommand} ${manualMode}`;
 
 export const manualModeCommand = `${ipmiCommand} ${autoMode}`;
 
-export const ambientTempCommand = `${ipmiCommand} sensor | grep "Ambient Temp" | awk '{print $4}'`;
+export const ambientTempCommand = `${ipmiCommand} sensor reading "Ambient Temp" | awk '{print $4}'`;
