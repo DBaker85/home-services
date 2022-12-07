@@ -44,8 +44,8 @@ export const createFanSpeedCommand = ({
 }): string =>
   `${ipmiCommand} ${fanCommand} 0x02 ${fanNumber} 0x${fanSpeedToHex(speed)}`;
 
-export const autoModeCommand = `${ipmiCommand} ${manualMode}`;
+export const autoModeCommand = `${ipmiCommand} ${autoMode}`;
 
-export const manualModeCommand = `${ipmiCommand} ${autoMode}`;
+export const manualModeCommand = `${ipmiCommand} ${manualMode}`;
 
 export const ambientTempCommand = `${ipmiCommand} sensor reading "Ambient Temp" | awk '{print $4}'`;
