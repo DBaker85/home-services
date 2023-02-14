@@ -16,8 +16,10 @@ import {
 } from "./ipmiCommands";
 import { getHighestTemp } from "./utils";
 
-const cpuThreshold = 60;
-let cpuHotAlert = false;
+const cpuWarmThreshold = 55;
+const cpuHotThreshold = 70;
+
+let tempAlert = false;
 
 let sendingCommands = false;
 
@@ -58,37 +60,134 @@ const spinner = ora("Begin monitoring");
         })
       )
       .subscribe(({ cpuTemp }) => {
-        if (!sendingCommands) {
-          if (!cpuHotAlert && cpuTemp > cpuThreshold) {
+        if (sendingCommands) {
+          return;
+        }
+
+        if (!tempAlert) {
+          if (cpuTemp > cpuWarmThreshold && cpuTemp < cpuHotThreshold) {
+            // cpu warm ramp up noctuas 100 and nidec 10
             console.log(`Cpu threshold ${red("Exceeded")}, ramping up fans`);
-            cpuHotAlert = true;
+            tempAlert = true;
             sendingCommands = true;
             execSync(
               createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_TWO,
+                speed: 100,
+              })
+            );
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_FOUR,
+                speed: 100,
+              })
+            );
+            execSync(
+              createFanSpeedCommand({
                 fanNumber: FanNumber.NIDEC_THREE,
-                speed: 60,
+                speed: 10,
+              })
+            );
+
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_ONE,
+                speed: 100,
+              })
+            );
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_FIVE,
+                speed: 100,
               })
             );
             sendingCommands = false;
           }
 
-          if (cpuHotAlert && cpuTemp < cpuThreshold) {
+          if (cpuTemp > cpuHotThreshold) {
+            //  cpu hot ramp up noctuas 100 and nidec to 60
+
             console.log(
-              `Cpu temperatures within safe limits, setting ${cyan(
-                "Idle"
-              )} mode`
+              `Cpu upper threshold ${red("Exceeded")}, ramping up fans`
             );
+            tempAlert = true;
             sendingCommands = true;
-            console.log(`Setting ${cyan("Fan 3")} to ${green("5%")}`);
             execSync(
               createFanSpeedCommand({
                 fanNumber: FanNumber.NIDEC_THREE,
-                speed: 5,
+                speed: 50,
               })
             );
-            cpuHotAlert = false;
+
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_TWO,
+                speed: 100,
+              })
+            );
+
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_FOUR,
+                speed: 100,
+              })
+            );
+
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_ONE,
+                speed: 100,
+              })
+            );
+            execSync(
+              createFanSpeedCommand({
+                fanNumber: FanNumber.NOCTUA_FIVE,
+                speed: 100,
+              })
+            );
             sendingCommands = false;
           }
+        }
+        if (tempAlert && cpuTemp < cpuWarmThreshold) {
+          //  cpu normal go to noctuas 70 and nidec 5
+          console.log(
+            `Cpu temperatures within safe limits, setting ${cyan("Idle")} mode`
+          );
+          sendingCommands = true;
+          console.log(`Setting ${cyan("Fan 3")} to ${green("5%")}`);
+
+          execSync(
+            createFanSpeedCommand({
+              fanNumber: FanNumber.NOCTUA_ONE,
+              speed: 70,
+            })
+          );
+          execSync(
+            createFanSpeedCommand({
+              fanNumber: FanNumber.NOCTUA_TWO,
+              speed: 70,
+            })
+          );
+          execSync(
+            createFanSpeedCommand({
+              fanNumber: FanNumber.NIDEC_THREE,
+              speed: 5,
+            })
+          );
+          execSync(
+            createFanSpeedCommand({
+              fanNumber: FanNumber.NOCTUA_FOUR,
+              speed: 70,
+            })
+          );
+          execSync(
+            createFanSpeedCommand({
+              fanNumber: FanNumber.NOCTUA_FIVE,
+              speed: 70,
+            })
+          );
+          tempAlert = false;
+          sendingCommands = false;
         }
       });
   } catch (err) {
