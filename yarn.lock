@@ -3785,7 +3785,7 @@ __metadata:
     nodemon: 2.0.7
     ora: ^5.4.1
     prettier: 2.3.1
-    pretty-quick: 3.1.0
+    pretty-quick: 3.1.3
     prompts: ^2.4.1
     rxjs: 7.1.0
     secrets: "*"
@@ -7010,25 +7010,7 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
-"pretty-quick@npm:3.1.0":
-  version: 3.1.0
-  resolution: "pretty-quick@npm:3.1.0"
-  dependencies:
-    chalk: ^3.0.0
-    execa: ^4.0.0
-    find-up: ^4.1.0
-    ignore: ^5.1.4
-    mri: ^1.1.5
-    multimatch: ^4.0.0
-  peerDependencies:
-    prettier: ">=2.0.0"
-  bin:
-    pretty-quick: bin/pretty-quick.js
-  checksum: a0f6823ff3807c9ac15555509eafcd869c603851ba84b605d5cf77cf1c90e4ffe27ac96c2405c5ac173bb0159e76664c2979c72e47c58aa9974a5ab684692335
-  languageName: node
-  linkType: hard
-
-"pretty-quick@npm:^3.1.1":
+"pretty-quick@npm:3.1.3, pretty-quick@npm:^3.1.1":
   version: 3.1.3
   resolution: "pretty-quick@npm:3.1.3"
   dependencies:
