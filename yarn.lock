@@ -2186,16 +2186,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/fs-extra@npm:9.0.11":
-  version: 9.0.11
-  resolution: "@types/fs-extra@npm:9.0.11"
-  dependencies:
-    "@types/node": "*"
-  checksum: 54619e50583a45d63e1d061dc5ca09b53424dd8ec01edfc282b6d5733d4fc40bcf3e66a2704a13ed4d3bf36f261b6fa27c180fd2f86114f6bc30c3eb245f453e
-  languageName: node
-  linkType: hard
-
-"@types/fs-extra@npm:^9.0.12":
+"@types/fs-extra@npm:9.0.13, @types/fs-extra@npm:^9.0.12":
   version: 9.0.13
   resolution: "@types/fs-extra@npm:9.0.13"
   dependencies:
@@ -3780,7 +3771,7 @@ __metadata:
     "@babel/preset-typescript": 7.14.5
     "@babel/runtime": 7.14.5
     "@types/date-fns": 2.6.0
-    "@types/fs-extra": 9.0.11
+    "@types/fs-extra": 9.0.13
     "@types/node": 15.12.2
     "@types/node-fetch": 2.5.10
     "@types/prompts": 2.0.12
