@@ -2100,7 +2100,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node16@npm:^1.0.1, @tsconfig/node16@npm:^1.0.2":
+"@tsconfig/node16@npm:^1.0.2":
   version: 1.0.3
   resolution: "@tsconfig/node16@npm:1.0.3"
   checksum: 3a8b657dd047495b7ad23437d6afd20297ce90380ff0bdee93fc7d39a900dbd8d9e26e53ff6b465e7967ce2adf0b218782590ce9013285121e6a5928fbd6819f
@@ -3789,7 +3789,7 @@ __metadata:
     prompts: ^2.4.1
     rxjs: 7.1.0
     secrets: "*"
-    ts-node: 10.0.0
+    ts-node: 10.9.1
     tsconfig: "*"
     typescript: 4.3.5
   languageName: unknown
@@ -7709,7 +7709,7 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.17":
+"source-map-support@npm:^0.5.16":
   version: 0.5.21
   resolution: "source-map-support@npm:0.5.21"
   dependencies:
@@ -8048,41 +8048,7 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.0.0":
-  version: 10.0.0
-  resolution: "ts-node@npm:10.0.0"
-  dependencies:
-    "@tsconfig/node10": ^1.0.7
-    "@tsconfig/node12": ^1.0.7
-    "@tsconfig/node14": ^1.0.0
-    "@tsconfig/node16": ^1.0.1
-    arg: ^4.1.0
-    create-require: ^1.1.0
-    diff: ^4.0.1
-    make-error: ^1.1.1
-    source-map-support: ^0.5.17
-    yn: 3.1.1
-  peerDependencies:
-    "@swc/core": ">=1.2.45"
-    "@swc/wasm": ">=1.2.45"
-    "@types/node": "*"
-    typescript: ">=2.7"
-  peerDependenciesMeta:
-    "@swc/core":
-      optional: true
-    "@swc/wasm":
-      optional: true
-  bin:
-    ts-node: dist/bin.js
-    ts-node-cwd: dist/bin-cwd.js
-    ts-node-script: dist/bin-script.js
-    ts-node-transpile-only: dist/bin-transpile.js
-    ts-script: dist/bin-script-deprecated.js
-  checksum: 96d633774e13eb90ad49d644f397e99f5da72818e36040bf5b6bd66d0ab369dbb4348e499193c0fa45071f8e9559bb7724174139389e56bb562db36a3842484e
-  languageName: node
-  linkType: hard
-
-"ts-node@npm:^10.2.1, ts-node@npm:^10.9.1":
+"ts-node@npm:10.9.1, ts-node@npm:^10.2.1, ts-node@npm:^10.9.1":
   version: 10.9.1
   resolution: "ts-node@npm:10.9.1"
   dependencies:
