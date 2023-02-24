@@ -2303,13 +2303,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-fetch@npm:2.5.10":
-  version: 2.5.10
-  resolution: "@types/node-fetch@npm:2.5.10"
+"@types/node-fetch@npm:2.6.2":
+  version: 2.6.2
+  resolution: "@types/node-fetch@npm:2.6.2"
   dependencies:
     "@types/node": "*"
     form-data: ^3.0.0
-  checksum: 504d3834083fcbb90dc488618a60d078ff3b018c3c77e649b4990aff6dfafe9e41c82699ed474e01d9df40448240b6b455653d25afeecbc0eacb4154a217c253
+  checksum: 6f73b1470000d303d25a6fb92875ea837a216656cb7474f66cdd67bb014aa81a5a11e7ac9c21fe19bee9ecb2ef87c1962bceeaec31386119d1ac86e4c30ad7a6
   languageName: node
   linkType: hard
 
@@ -3773,7 +3773,7 @@ __metadata:
     "@types/date-fns": 2.6.0
     "@types/fs-extra": 9.0.13
     "@types/node": 15.12.2
-    "@types/node-fetch": 2.5.10
+    "@types/node-fetch": 2.6.2
     "@types/prompts": 2.0.12
     babelconfig: "*"
     chalk: ^4.1.1
