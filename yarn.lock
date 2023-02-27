@@ -2739,12 +2739,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prompts@npm:2.0.12":
-  version: 2.0.12
-  resolution: "@types/prompts@npm:2.0.12"
+"@types/prompts@npm:2.4.2":
+  version: 2.4.2
+  resolution: "@types/prompts@npm:2.4.2"
   dependencies:
     "@types/node": "*"
-  checksum: ed861809228a2118bed0e5097c48b45a37c033002259337785333d4df2ce07f2de3e7fd65e8b201f054f703444393861ccc3748607ce034491e825ba90d40a5d
+    kleur: ^3.0.3
+  checksum: 1c2277534a546d77fe7390e4a3a34881ceb7015c95f5b22d1b239cb6c287c300c4dc5a713c1f734f3f892b243225ed703b1d1d149b9995af024c7a19dc49369e
   languageName: node
   linkType: hard
 
@@ -4072,7 +4073,7 @@ __metadata:
     "@types/fs-extra": 11.0.1
     "@types/node": 15.12.2
     "@types/node-fetch": 2.6.2
-    "@types/prompts": 2.0.12
+    "@types/prompts": 2.4.2
     babelconfig: "*"
     chalk: ^4.1.1
     config: "*"
