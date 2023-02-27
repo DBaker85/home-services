@@ -32,7 +32,7 @@
     "@babel/runtime": "7.21.0",
     "@types/date-fns": "2.6.0",
     "@types/fs-extra": "11.0.1",
-    "@types/node": "15.12.2",
+    "@types/node": "18.14.2",
     "@types/node-fetch": "2.6.2",
     "@types/prompts": "2.0.12",
     "babelconfig": "*",
