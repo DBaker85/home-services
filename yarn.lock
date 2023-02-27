@@ -4090,7 +4090,7 @@ __metadata:
     secrets: "*"
     ts-node: 10.9.1
     tsconfig: "*"
-    typescript: 4.3.5
+    typescript: 4.9.5
   languageName: unknown
   linkType: soft
 
@@ -8391,13 +8391,13 @@ turbo@latest:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.3.5":
-  version: 4.3.5
-  resolution: "typescript@npm:4.3.5"
+"typescript@npm:4.9.5":
+  version: 4.9.5
+  resolution: "typescript@npm:4.9.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bab033b5e2b0790dd35b77fd005df976ef80b8d84fd2c6e63cc31808151875beae9216e5a315fe7068e8499905c3c354248fe83272cdfc13b7705635f0c66c97
+  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
   languageName: node
   linkType: hard
 
@@ -8411,13 +8411,13 @@ turbo@latest:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.3.5#~builtin<compat/typescript>":
-  version: 4.3.5
-  resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=a1c5e5"
+"typescript@patch:typescript@4.9.5#~builtin<compat/typescript>":
+  version: 4.9.5
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 365df18cf979c971ef9543b2acaa8694377a803f98e1804c41d0ede0b09d7046cb0cd98f2eaf3884b0fe923c01a60af1f653841bd8805c9715d5479c09a4ebe4
+  checksum: 2eee5c37cad4390385db5db5a8e81470e42e8f1401b0358d7390095d6f681b410f2c4a0c496c6ff9ebd775423c7785cdace7bcdad76c7bee283df3d9718c0f20
   languageName: node
   linkType: hard
 
