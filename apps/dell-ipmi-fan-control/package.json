@@ -34,7 +34,7 @@
     "@types/fs-extra": "9.0.13",
     "@types/node": "15.12.2",
     "@types/node-fetch": "2.6.2",
-    "@types/prompts": "2.0.12",
+    "@types/prompts": "2.4.2",
     "babelconfig": "*",
     "config": "*",
     "husky": "6.0.0",
