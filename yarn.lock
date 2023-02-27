@@ -2697,10 +2697,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:15.12.2":
-  version: 15.12.2
-  resolution: "@types/node@npm:15.12.2"
-  checksum: 0dff080f306e4d5cd968bd43315238a227b1f54f4bb59fa9cee976535678f00755834c0288315029ae12f78b3db43efb5bfb700cf8aae882f184eb700229f974
+"@types/node@npm:18.14.2, @types/node@npm:^18.0.0":
+  version: 18.14.2
+  resolution: "@types/node@npm:18.14.2"
+  checksum: 53c07e721f6ae33de71306f6a0b75dae6066a4f55bd5484c93bd59ff25f0c5f004ceafeef509a4d0cb9e24a247efc34d50489bcc1b05a53ecc68e2fc088e65cb
   languageName: node
   linkType: hard
 
@@ -2708,13 +2708,6 @@ __metadata:
   version: 12.20.55
   resolution: "@types/node@npm:12.20.55"
   checksum: e4f86785f4092706e0d3b0edff8dca5a13b45627e4b36700acd8dfe6ad53db71928c8dee914d4276c7fd3b6ccd829aa919811c9eb708a2c8e4c6eb3701178c37
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^16.9.1":
-  version: 16.11.58
-  resolution: "@types/node@npm:16.11.58"
-  checksum: efdf14c62e6c1a8e758416aaa3ae4b81015ffd4e1f31c05680d1242817ba23f0b4b1345886fe5aeb3c05d818bcaed1a7af4d637e7cca5723a5e4ac8b759d3ace
   languageName: node
   linkType: hard
 
@@ -4071,7 +4064,7 @@ __metadata:
     "@babel/runtime": 7.21.0
     "@types/date-fns": 2.6.0
     "@types/fs-extra": 11.0.1
-    "@types/node": 15.12.2
+    "@types/node": 18.14.2
     "@types/node-fetch": 2.6.2
     "@types/prompts": 2.4.2
     babelconfig: "*"
@@ -4109,7 +4102,7 @@ __metadata:
     "@types/fs-extra": ^11.0.0
     "@types/koa": ^2.13.4
     "@types/koa-router": ^7.4.4
-    "@types/node": ^16.9.1
+    "@types/node": ^18.0.0
     "@types/prompts": ^2.0.14
     babelconfig: "*"
     config: "*"
