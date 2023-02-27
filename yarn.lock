@@ -4116,7 +4116,7 @@ __metadata:
     fs-extra: ^11.0.0
     husky: ^7.0.0
     koa: ^2.13.1
-    koa-router: ^10.1.1
+    koa-router: ^12.0.0
     nodemon: ^2.0.12
     prettier: ^2.4.1
     pretty-quick: ^3.1.1
@@ -4128,17 +4128,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"depd@npm:2.0.0, depd@npm:^2.0.0, depd@npm:~2.0.0":
+  version: 2.0.0
+  resolution: "depd@npm:2.0.0"
+  checksum: abbe19c768c97ee2eed6282d8ce3031126662252c58d711f646921c9623f9052e3e1906443066beec1095832f534e57c523b7333f8e7e0d93051ab6baef5ab3a
+  languageName: node
+  linkType: hard
+
 "depd@npm:^1.1.2, depd@npm:~1.1.2":
   version: 1.1.2
   resolution: "depd@npm:1.1.2"
   checksum: 6b406620d269619852885ce15965272b829df6f409724415e0002c8632ab6a8c0a08ec1f0bd2add05dc7bd7507606f7e2cc034fa24224ab829580040b835ecd9
-  languageName: node
-  linkType: hard
-
-"depd@npm:^2.0.0, depd@npm:~2.0.0":
-  version: 2.0.0
-  resolution: "depd@npm:2.0.0"
-  checksum: abbe19c768c97ee2eed6282d8ce3031126662252c58d711f646921c9623f9052e3e1906443066beec1095832f534e57c523b7333f8e7e0d93051ab6baef5ab3a
   languageName: node
   linkType: hard
 
@@ -5351,7 +5351,7 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
-"http-errors@npm:^1.6.3, http-errors@npm:^1.7.3, http-errors@npm:~1.8.0":
+"http-errors@npm:^1.6.3, http-errors@npm:~1.8.0":
   version: 1.8.1
   resolution: "http-errors@npm:1.8.1"
   dependencies:
@@ -5361,6 +5361,19 @@ eslint-config-turbo@latest:
     statuses: ">= 1.5.0 < 2"
     toidentifier: 1.0.1
   checksum: d3c7e7e776fd51c0a812baff570bdf06fe49a5dc448b700ab6171b1250e4cf7db8b8f4c0b133e4bfe2451022a5790c1ca6c2cae4094dedd6ac8304a1267f91d2
+  languageName: node
+  linkType: hard
+
+"http-errors@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "http-errors@npm:2.0.0"
+  dependencies:
+    depd: 2.0.0
+    inherits: 2.0.4
+    setprototypeof: 1.2.0
+    statuses: 2.0.1
+    toidentifier: 1.0.1
+  checksum: 9b0a3782665c52ce9dc658a0d1560bcb0214ba5699e4ea15aefb2a496e2ca83db03ebc42e1cce4ac1f413e4e0d2d736a3fd755772c556a9a06853ba2a0b7d920
   languageName: node
   linkType: hard
 
@@ -5982,16 +5995,15 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
-"koa-router@npm:^10.1.1":
-  version: 10.1.1
-  resolution: "koa-router@npm:10.1.1"
+"koa-router@npm:^12.0.0":
+  version: 12.0.0
+  resolution: "koa-router@npm:12.0.0"
   dependencies:
-    debug: ^4.1.1
-    http-errors: ^1.7.3
+    http-errors: ^2.0.0
     koa-compose: ^4.1.0
     methods: ^1.1.2
-    path-to-regexp: ^6.1.0
-  checksum: 65e6cd4a7f8a4d98c665b00ee4c2c05340cb38ca035590ce71c23a25c0a01f6d2434d9a68366d7c218af9c94e5d8e20c7fe9e7f7dfbb98d69b11b5ae3246aaf8
+    path-to-regexp: ^6.2.1
+  checksum: 29b02fd96972c037e805f6ce2626c971f4fd9cba04005bfedc080ab425d31b4b1cfe2ebc000b26e4a45e68215a3a3ed557f836ba486ea0d2f1e7e78fc95f8dca
   languageName: node
   linkType: hard
 
@@ -7008,7 +7020,7 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
-"path-to-regexp@npm:^6.1.0":
+"path-to-regexp@npm:^6.2.1":
   version: 6.2.1
   resolution: "path-to-regexp@npm:6.2.1"
   checksum: f0227af8284ea13300f4293ba111e3635142f976d4197f14d5ad1f124aebd9118783dd2e5f1fe16f7273743cc3dbeddfb7493f237bb27c10fdae07020cc9b698
@@ -7853,6 +7865,13 @@ eslint-config-turbo@latest:
   dependencies:
     minipass: ^3.1.1
   checksum: fb58f5e46b6923ae67b87ad5ef1c5ab6d427a17db0bead84570c2df3cd50b4ceb880ebdba2d60726588272890bae842a744e1ecce5bd2a2a582fccd5068309eb
+  languageName: node
+  linkType: hard
+
+"statuses@npm:2.0.1":
+  version: 2.0.1
+  resolution: "statuses@npm:2.0.1"
+  checksum: 18c7623fdb8f646fb213ca4051be4df7efb3484d4ab662937ca6fbef7ced9b9e12842709872eb3020cc3504b93bde88935c9f6417489627a7786f24f8031cbcb
   languageName: node
   linkType: hard
 
