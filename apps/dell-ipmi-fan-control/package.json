@@ -38,7 +38,7 @@
     "babelconfig": "*",
     "config": "*",
     "husky": "6.0.0",
-    "nodemon": "2.0.7",
+    "nodemon": "2.0.20",
     "prettier": "2.3.1",
     "pretty-quick": "3.1.0",
     "secrets": "*",
