@@ -37,7 +37,7 @@
     "@types/prompts": "2.4.2",
     "babelconfig": "*",
     "config": "*",
-    "husky": "6.0.0",
+    "husky": "8.0.3",
     "nodemon": "2.0.20",
     "prettier": "2.8.4",
     "pretty-quick": "3.1.3",
