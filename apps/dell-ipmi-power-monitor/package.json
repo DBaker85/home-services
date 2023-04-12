@@ -2,13 +2,24 @@
   "name": "dell-ipmi-power-monitor",
   "version": "1.0.0",
   "description": "A power monitoring backend to send dell poweredge r710  usage stats to a local home assistant instance",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
     "setup": "ts-node scripts/create-config.ts",
     "dev": "DEV_ENV=true nodemon index.js",
-    "build": "babel src --out-dir dist --copy-files --extensions '.ts,.js'"
+    "build": "yarn build:app && yarn build:docker",
+    "build:app": "parcel build src/index.ts",
+    "build:docker": "docker build . -t home-services/$npm_package_name"
+  },
+  "targets": {
+    "main": {
+      "includeNodeModules": true,
+      "context": "node"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "repository": {
     "type": "git",

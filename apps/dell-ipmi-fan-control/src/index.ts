@@ -24,7 +24,9 @@ let tempAlert = false;
 
 let sendingCommands = false;
 
-const spinner = ora("Begin monitoring");
+const appName = "dell-ipmi-fan-control";
+
+const spinner = ora(`[${appName}] - Begin monitoring`);
 
 (() => {
   try {
@@ -86,7 +88,7 @@ const spinner = ora("Begin monitoring");
         }
       });
   } catch (err) {
-    errorLogger({ err, appName: "dell-ipmi-fan-control" });
+    errorLogger({ err, appName });
     spinner.fail(err as string);
     process.exit(1);
   }
