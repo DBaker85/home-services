@@ -1,0 +1,14 @@
+FROM node:18-alpine
+# Create app directory
+WORKDIR /usr/src/app
+
+# install IPMI tools
+RUN apk add ipmitool
+
+# we need the node_modules, so either package it all or copy it all
+# If you are building your code for production
+# RUN npm ci --omit=dev
+COPY /dist .
+
+EXPOSE 8080
+CMD [ "node", "dist/index.js"]

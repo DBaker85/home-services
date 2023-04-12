@@ -5,6 +5,7 @@ import util from "util";
 
 import { ip, user, password } from "secrets/ipmi";
 
+const port = 8080;
 const exec = util.promisify(ChildExec);
 
 const ipmiCommand = `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password} delloem powermonitor powerconsumptionhistory | grep "Average Power Consumption" | awk '{print $4}'`;
@@ -19,9 +20,9 @@ router.get("server-power", "/api/server-power", async (context) => {
 });
 
 router.get("root", "/", (context) => {
-  context.throw(500, "Sample error message");
+  context.body = "Api available on /api/server-power";
 });
 
 app.use(router.routes()).use(router.allowedMethods());
-app.listen(5878);
-console.log("app running on port 5878");
+app.listen(port);
+console.log(`[dell-ipmi-power-monitor] running on port ${port}`);

@@ -27,6 +27,9 @@ yarn-error.log*
 # turbo
 .turbo
 
+# parcel
+.parcel-cache
+
 #builds
 dist/
 
