@@ -6,7 +6,11 @@ services:
     ports:
       - 5878:8080
     restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
   dell-ipmi-fan-control:
     image: home-services/dell-ipmi-fan-control:latest
     container_name: hs_proxmox_fan_control
     restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
