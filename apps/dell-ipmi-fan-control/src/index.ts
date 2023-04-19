@@ -58,7 +58,11 @@ const spinner = ora(`[${appName}] - Begin monitoring`);
         if (!tempAlert) {
           if (cpuTemp > cpuWarmThreshold && cpuTemp < cpuHotThreshold) {
             // cpu warm ramp up noctuas 100 and nidec 10
-            console.log(`Cpu temp ${yellow("warning")}, ramping up fans`);
+            console.log(
+              `Cpu temp is ${cpuTemp} - ${yellow(
+                "warning"
+              )}, ramping up fans to MEDIUM`
+            );
             tempAlert = true;
             sendingCommands = true;
             warningCommandSet();
@@ -68,7 +72,11 @@ const spinner = ora(`[${appName}] - Begin monitoring`);
           if (cpuTemp > cpuHotThreshold) {
             //  cpu hot ramp up noctuas 100 and nidec to 60
 
-            console.log(`Cpu temp ${red("alert")}, ramping up fans`);
+            console.log(
+              `Cpu temp is ${cpuTemp} - ${red(
+                "alert"
+              )}, ramping up fans to HIGH`
+            );
             tempAlert = true;
             sendingCommands = true;
             alertCommandSet();
@@ -78,10 +86,11 @@ const spinner = ora(`[${appName}] - Begin monitoring`);
         if (tempAlert && cpuTemp < cpuWarmThreshold) {
           //  cpu normal go to noctuas 70 and nidec 5
           console.log(
-            `Cpu temperatures within safe limits, setting ${cyan("Idle")} mode`
+            `Cpu temperature is ${cpuTemp} - within safe limits, setting fans to ${cyan(
+              "Idle"
+            )} mode`
           );
           sendingCommands = true;
-          console.log(`Setting ${green("idle")} fan mode`);
           idleCommandSet();
           tempAlert = false;
           sendingCommands = false;
