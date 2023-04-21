@@ -13,7 +13,7 @@ const getFormattedDateStamp = /*#__PURE__*/ () => {
 };
 
 const logToFile = (appName) => {
-  const logger = new logToConsole(appName);
+  const logger = logToConsole(appName);
   const error = (err) => {
     const dateStamp = getFormattedDateStamp();
     logger.error(err, dateStamp);
