@@ -2,9 +2,11 @@ import Koa from "koa";
 import KoaRouter from "koa-router";
 import { exec as ChildExec } from "child_process";
 import util from "util";
-
+import { logToConsole } from "logging";
 import { ip, user, password } from "secrets/ipmi";
 
+const appName = "dell-ipmi-fan-control";
+const consoleLogger = logToConsole(appName);
 const port = 8080;
 const exec = util.promisify(ChildExec);
 
@@ -25,4 +27,4 @@ router.get("root", "/", (context) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 app.listen(port);
-console.log(`[dell-ipmi-power-monitor] running on port ${port}`);
+consoleLogger.log(`running on port ${port}`);

@@ -7,7 +7,7 @@ import ora from "ora";
 import { cyan, green, red, yellow } from "chalk";
 
 import { ip as glancesIp } from "secrets/glances";
-import { errorLogger } from "logging";
+import { logToConsole, logToFile } from "logging";
 
 import { manualModeCommand } from "./ipmiCommands";
 import { getHighestTemp } from "./utils";
@@ -27,14 +27,16 @@ let sendingCommands = false;
 const appName = "dell-ipmi-fan-control";
 
 const spinner = ora(`[${appName}] - Begin monitoring`);
+const errorLogger = logToFile(appName);
+const consoleLogger = logToConsole(appName);
 
 (() => {
   try {
-    console.log(`Config found, Initializing control`);
+    consoleLogger.log(`Config found, Initializing control`);
     sendingCommands = true;
-    console.log(`Setting ${cyan("Manual")} mode`);
+    consoleLogger.log(`Setting ${cyan("Manual")} mode`);
     execSync(manualModeCommand);
-    console.log(`Setting ${green("idle")} fan mode`);
+    consoleLogger.log(`Setting ${green("idle")} fan mode`);
     idleCommandSet();
 
     sendingCommands = false;
@@ -58,7 +60,7 @@ const spinner = ora(`[${appName}] - Begin monitoring`);
         if (!tempAlert) {
           if (cpuTemp > cpuWarmThreshold && cpuTemp < cpuHotThreshold) {
             // cpu warm ramp up noctuas 100 and nidec 10
-            console.log(
+            consoleLogger.log(
               `Cpu temp is ${cpuTemp} - ${yellow(
                 "warning"
               )}, ramping up fans to MEDIUM`
@@ -72,7 +74,7 @@ const spinner = ora(`[${appName}] - Begin monitoring`);
           if (cpuTemp > cpuHotThreshold) {
             //  cpu hot ramp up noctuas 100 and nidec to 60
 
-            console.log(
+            consoleLogger.log(
               `Cpu temp is ${cpuTemp} - ${red(
                 "alert"
               )}, ramping up fans to HIGH`
@@ -85,7 +87,7 @@ const spinner = ora(`[${appName}] - Begin monitoring`);
         }
         if (tempAlert && cpuTemp < cpuWarmThreshold) {
           //  cpu normal go to noctuas 70 and nidec 5
-          console.log(
+          consoleLogger.log(
             `Cpu temperature is ${cpuTemp} - within safe limits, setting fans to ${cyan(
               "Idle"
             )} mode`
@@ -97,7 +99,7 @@ const spinner = ora(`[${appName}] - Begin monitoring`);
         }
       });
   } catch (err) {
-    errorLogger({ err, appName });
+    errorLogger.error(err);
     spinner.fail(err as string);
     process.exit(1);
   }
