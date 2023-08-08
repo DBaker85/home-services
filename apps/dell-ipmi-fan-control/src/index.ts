@@ -10,7 +10,7 @@ import { ip as glancesIp } from "secrets/glances";
 import { logToConsole, logToFile } from "logging";
 
 import { manualModeCommand } from "./ipmiCommands";
-import { getHighestTemp } from "./utils";
+import { getHighestCoreTemp } from "./utils";
 import {
   idleCommandSet,
   warningCommandSet,
@@ -49,7 +49,7 @@ const consoleLogger = logToConsole(appName);
             method: "GET",
           });
           const json = await res.json();
-          return { cpuTemp: getHighestTemp(json) };
+          return { cpuTemp: getHighestCoreTemp(json) };
         })
       )
       .subscribe(({ cpuTemp }) => {
