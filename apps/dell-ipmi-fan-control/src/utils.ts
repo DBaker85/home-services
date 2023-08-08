@@ -1,9 +1,9 @@
-import { Glances, SensorType } from "./types";
+import { type Glances, SensorType } from "./types";
 
-export const getHighestTemp = (json: Glances): number => {
-  const cpuTemps = json.sensors.filter(
-    (sensor) => sensor.type === SensorType.TemperatureCore
-  );
+export const getHighestCoreTemp = (json: Glances): number => {
+  const cpuTemps = json.sensors
+    .filter((sensor) => sensor.type === SensorType.TemperatureCore)
+    .filter((sensor) => sensor.label.includes("Core"));
   const maxValue = Math.max.apply(
     Math,
     cpuTemps.map((temp) => temp.value)
