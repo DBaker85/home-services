@@ -1,0 +1,22 @@
+
+
+.rd3t-node,
+.rd3t-leaf-node {
+  fill: transparent !important;
+  &:hover {
+    fill: var(--color-white) !important;
+    fill-opacity: 0.3;
+    text {
+      fill: var(--color-black);
+      stroke: none;
+    }
+  }
+}
+
+.custom-node {
+  transition: transform 0.2s ease-in-out;
+  & --hovered {
+    transform: scale(1.1);
+    fill: var(--color-white);
+  }
+}

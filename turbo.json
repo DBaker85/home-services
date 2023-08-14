@@ -1,5 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
+  "globalDotEnv": [".env"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -10,6 +11,13 @@
     },
     "dev": {
       "cache": false
+    },
+    "docker": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
+    "start": {
+      "dependsOn": ["^build"]
     }
   }
 }

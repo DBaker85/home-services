@@ -1,0 +1,12 @@
+{
+  "name": "types",
+  "version": "0.0.1",
+  "private": true,
+  "files": [
+    "topology.ts",
+    "react-d3-tree.d.ts"
+  ],
+  "dependencies": {
+    "fs-extra": "^11.0.0"
+  }
+}

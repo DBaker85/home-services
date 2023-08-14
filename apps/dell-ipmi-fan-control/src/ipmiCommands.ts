@@ -1,4 +1,3 @@
-import { ip, user, password } from "secrets/ipmi";
 import { fanSpeedToHex } from "./utils";
 
 /**
@@ -18,7 +17,11 @@ import { fanSpeedToHex } from "./utils";
  * 
  */
 
-const ipmiCommand = `ipmitool -I lanplus -H ${ip} -U ${user} -P ${password}`;
+const ipmiCommand = `ipmitool -I lanplus -H ${
+  process.env.IPMI_IP as string
+} -U ${process.env.IPMI_USER as string} -P ${
+  process.env.IPMI_PASSWORD as string
+}`;
 
 const fanCommand = `raw 0x30 0x30`;
 
