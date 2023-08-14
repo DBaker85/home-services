@@ -1,0 +1,3 @@
+#comnpiled scripts
+dist/**/*.js
+dist/**/*.js.map

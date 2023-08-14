@@ -8,9 +8,8 @@
     "prepare": "husky install",
     "setup": "ts-node scripts/create-config.ts",
     "dev": "DEV_ENV=true nodemon index.js",
-    "build": "yarn build:app && yarn build:docker",
-    "build:app": "parcel build src/index.ts",
-    "build:docker": "docker build . -t home-services/$npm_package_name"
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js",
+    "docker": "docker build . -t home-services/$npm_package_name"
   },
   "targets": {
     "main": {
@@ -34,8 +33,7 @@
     "node-fetch": "2.6.1",
     "ora": "^5.4.1",
     "prompts": "^2.4.1",
-    "rxjs": "7.8.0",
-    "secrets": "*"
+    "rxjs": "7.8.0"
   },
   "devDependencies": {
     "@babel/node": "7.20.7",
@@ -57,7 +55,6 @@
     "prettier": "2.8.4",
     "pretty-quick": "3.1.3",
     "ts-node": "10.9.1",
-    "tsconfig": "*",
-    "typescript": "4.9.5"
+    "tsconfig": "*"
   }
 }

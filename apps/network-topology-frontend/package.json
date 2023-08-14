@@ -1,0 +1,37 @@
+{
+  "name": "network-topology-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.5",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.1",
+    "@reduxjs/toolkit": "^1.9.5",
+    "mui-image": "^1.0.7",
+    "react": "^18.2.0",
+    "react-d3-tree": "^3.6.1",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.1",
+    "sass": "^1.64.0",
+    "socket.io-client": "^4.7.1"
+  },
+  "devDependencies": {
+    "@types/mui-image": "^1.0.1",
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "tsconfig": "*",
+    "types": "*",
+    "vite": "^4.3.9"
+  }
+}

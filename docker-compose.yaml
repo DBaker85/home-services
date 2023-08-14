@@ -1,16 +1,78 @@
-version: "1"
+version: "3"
 services:
+  hs-mongodb:
+    ports:
+      - '${MONGO_PORT}:27017'
+    container_name: hs-mongodb
+    image: mongo:4.4.22
+    restart: unless-stopped
+    volumes:
+      - ./docker-data/mongo:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  
   dell-ipmi-power-monitor:
     image: home-services/dell-ipmi-power-monitor:latest
     container_name: hs_proxmox_power_monitor
     ports:
-      - 5878:8080
+      - ${IPMI_MONITOR_PORT}:8080
+    environment:
+      - IPMI_IP=${IPMI_IP}
+      - IPMI_USER=${IPMI_USER}
+      - IPMI_PASSWORD=${IPMI_PASSWORD}
     restart: unless-stopped
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
+  
   dell-ipmi-fan-control:
     image: home-services/dell-ipmi-fan-control:latest
     container_name: hs_proxmox_fan_control
+    environment:
+      - GLANCES_IP=${GLANCES_IP}
+      - GLANCES_PORT=${GLANCES_PORT}
+      - IPMI_IP=${IPMI_IP}
+      - IPMI_USER=${IPMI_USER}
+      - IPMI_PASSWORD=${IPMI_PASSWORD}
     restart: unless-stopped
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
+  
+  network-topology-backend:
+    image: home-services/network-topology-backend:latest
+    container_name: hs_topology_backend
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+    depends_on:
+      - hs-mongodb
+    ports:
+      - ${TOPOLOGY_WS_PORT}:8080
+    environment:
+      - PFSENSE_PORT=${PFSENSE_PORT}
+      - PFSENSE_IP=${PFSENSE_IP}
+      - PFSENSE_CLIENT_ID=${PFSENSE_CLIENT_ID}
+      - PFSENSE_API_TOKEN=${PFSENSE_API_TOKEN}
+      - UNIFI_IP=${UNIFI_IP}
+      - UNIFI_PORT=${UNIFI_PORT}
+      - UNIFI_USER=${UNIFI_USER}
+      - UNIFI_PASSWORD=${UNIFI_PASSWORD}
+      - MONGO_IP=hs-mongodb
+      - MONGO_PORT=27017
+      - MONGO_DB=${MONGO_DB}
+  
+  network-topology-frontend:
+    image: joseluisq/static-web-server:2
+    container_name: hs_topology_frontend
+    ports:
+      - 8989:443
+    volumes:
+      - ./docker-data/topology/certs:/certs
+      - ./apps/network-topology-frontend/dist:/public
+    environment:
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=443
+      - SERVER_ROOT=/public
+      - SERVER_CORS_ALLOW_ORIGINS=*
+      - SERVER_HTTP2_TLS=true
+      - SERVER_HTTPS_REDIRECT=true
+      - SERVER_HTTP2_TLS_CERT=./certs/certificate.pem
+      - SERVER_HTTP2_TLS_KEY=./certs/private_key.pem

@@ -6,7 +6,6 @@ import { concatMap } from "rxjs/operators";
 import ora from "ora";
 import { cyan, green, red, yellow } from "chalk";
 
-import { ip as glancesIp } from "secrets/glances";
 import { logToConsole, logToFile } from "logging";
 
 import { manualModeCommand } from "./ipmiCommands";
@@ -45,9 +44,14 @@ const consoleLogger = logToConsole(appName);
     timer(1, 5000)
       .pipe(
         concatMap(async () => {
-          const res = await fetch(`http://${glancesIp}/api/3/all`, {
-            method: "GET",
-          });
+          const res = await fetch(
+            `http://${process.env.GLANCES_IP as string}:${
+              process.env.GLANCES_PORT as string
+            }/api/3/all`,
+            {
+              method: "GET",
+            }
+          );
           const json = await res.json();
           return { cpuTemp: getHighestCoreTemp(json) };
         })

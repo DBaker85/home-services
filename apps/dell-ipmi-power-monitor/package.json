@@ -8,9 +8,8 @@
     "prepare": "husky install",
     "setup": "ts-node scripts/create-config.ts",
     "dev": "DEV_ENV=true nodemon index.js",
-    "build": "yarn build:app && yarn build:docker",
-    "build:app": "parcel build src/index.ts",
-    "build:docker": "docker build . -t home-services/$npm_package_name"
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js",
+    "docker": "docker build . -t home-services/$npm_package_name"
   },
   "targets": {
     "main": {
@@ -19,7 +18,7 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
@@ -57,9 +56,7 @@
     "prettier": "^2.4.1",
     "pretty-quick": "^3.1.1",
     "prompts": "^2.4.1",
-    "secrets": "*",
     "ts-node": "^10.2.1",
-    "tsconfig": "*",
-    "typescript": "^4.4.3"
+    "tsconfig": "*"
   }
 }
