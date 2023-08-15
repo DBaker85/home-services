@@ -24,6 +24,7 @@
     "@types/node": "^18.7.18",
     "@types/prettier": "^2.7.0",
     "chalk": "4.1.2",
+    "dotenv-cli": "^7.2.1",
     "eslint-config-custom": "*",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
@@ -37,7 +38,6 @@
   },
   "packageManager": "yarn@3.4.1",
   "dependencies": {
-    "dotenv-cli": "^7.2.1",
     "esbuild": "^0.19.0",
     "typescript": "^5.1.6"
   }
