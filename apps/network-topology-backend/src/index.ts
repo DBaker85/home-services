@@ -1,3 +1,5 @@
+import https from "https";
+import fsx from "fs-extra";
 import Koa, { type BaseContext as Context } from "koa";
 import KoaRouter from "koa-router";
 import { Server } from "socket.io";
@@ -22,6 +24,11 @@ const consoleLogger = logToConsole(appName);
 const port = 8080;
 const app = new Koa();
 const router = new KoaRouter();
+
+const httpsOptions = {
+  key: fsx.readFileSync("./certs/private_key.pem"),
+  cert: fsx.readFileSync("./certs/certificate.pem"),
+};
 
 connect(
   `mongodb://${process.env.MONGO_IP as string}:${
@@ -93,8 +100,11 @@ router.get("root", "/", (context: Context) => {
 });
 
 app.use(router.routes()).use(router.allowedMethods());
-const httpServer = app.listen(port);
-const io = new Server(httpServer, {
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+const httpsServer = https
+  .createServer(httpsOptions, app.callback())
+  .listen(port);
+const io = new Server(httpsServer, {
   cors: {
     origin: "*",
   },

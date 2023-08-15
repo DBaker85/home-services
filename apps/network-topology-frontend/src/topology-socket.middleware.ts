@@ -23,7 +23,7 @@ export const topologySocketMiddleware: Middleware = (store) => {
     ) {
       isConnecting = true;
       socket = io(
-        `http://${import.meta.env.VITE_WS_IP}:${import.meta.env.VITE_WS_PORT}`,
+        `https://${import.meta.env.VITE_WS_IP}:${import.meta.env.VITE_WS_PORT}`,
         {
           withCredentials: false,
         }
