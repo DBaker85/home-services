@@ -50,7 +50,7 @@
     "babelconfig": "*",
     "config": "*",
     "husky": "6.0.0",
-    "nodemon": "2.0.20",
+    "nodemon": "2.0.22",
     "parcel": "^2.8.3",
     "prettier": "2.8.4",
     "pretty-quick": "3.1.3",
