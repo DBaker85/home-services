@@ -30,7 +30,7 @@ export const idleCommandSet = (): void => {
   execSync(
     createFanSpeedCommand({
       fanNumber: FanNumber.NOCTUA_FIVE,
-      speed: 70,
+      speed: 5,
     })
   );
 };
@@ -58,7 +58,7 @@ export const warningCommandSet = (): void => {
   execSync(
     createFanSpeedCommand({
       fanNumber: FanNumber.NOCTUA_FIVE,
-      speed: 100,
+      speed: 10,
     })
   );
   execSync(
@@ -100,7 +100,7 @@ export const alertCommandSet = (): void => {
   execSync(
     createFanSpeedCommand({
       fanNumber: FanNumber.NOCTUA_FIVE,
-      speed: 100,
+      speed: 50,
     })
   );
 };
