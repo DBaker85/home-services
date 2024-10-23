@@ -4319,10 +4319,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.14.2":
-  version: 18.14.2
-  resolution: "@types/node@npm:18.14.2"
-  checksum: 53c07e721f6ae33de71306f6a0b75dae6066a4f55bd5484c93bd59ff25f0c5f004ceafeef509a4d0cb9e24a247efc34d50489bcc1b05a53ecc68e2fc088e65cb
+"@types/node@npm:18.19.59":
+  version: 18.19.59
+  resolution: "@types/node@npm:18.19.59"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: 8e45a05aa91437d3d11a346775ac16589353070c504f91a62cd91945a384231ccbbe92009a8e1ae653f954f9de5bf8ff106cc8e26721ecab98914dc019217aef
   languageName: node
   linkType: hard
 
@@ -6014,7 +6016,7 @@ __metadata:
     "@babel/runtime": 7.21.0
     "@types/date-fns": 2.6.0
     "@types/fs-extra": 11.0.1
-    "@types/node": 18.14.2
+    "@types/node": 18.19.59
     "@types/node-fetch": 2.6.2
     "@types/prompts": 2.4.2
     babelconfig: "*"
@@ -11841,6 +11843,13 @@ eslint-config-turbo@latest:
   version: 2.0.5
   resolution: "undefsafe@npm:2.0.5"
   checksum: f42ab3b5770fedd4ada175fc1b2eb775b78f609156f7c389106aafd231bfc210813ee49f54483d7191d7b76e483bc7f537b5d92d19ded27156baf57592eb02cc
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 3192ef6f3fd5df652f2dc1cd782b49d6ff14dc98e5dced492aa8a8c65425227da5da6aafe22523c67f035a272c599bb89cfe803c1db6311e44bed3042fc25487
   languageName: node
   linkType: hard
 
