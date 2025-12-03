@@ -6025,7 +6025,7 @@ __metadata:
     husky: 6.0.0
     logging: "*"
     node-fetch: 2.6.1
-    nodemon: 2.0.20
+    nodemon: 2.0.22
     ora: ^5.4.1
     parcel: ^2.8.3
     prettier: 2.8.4
@@ -9552,27 +9552,7 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
-"nodemon@npm:2.0.20":
-  version: 2.0.20
-  resolution: "nodemon@npm:2.0.20"
-  dependencies:
-    chokidar: ^3.5.2
-    debug: ^3.2.7
-    ignore-by-default: ^1.0.1
-    minimatch: ^3.1.2
-    pstree.remy: ^1.1.8
-    semver: ^5.7.1
-    simple-update-notifier: ^1.0.7
-    supports-color: ^5.5.0
-    touch: ^3.1.0
-    undefsafe: ^2.0.5
-  bin:
-    nodemon: bin/nodemon.js
-  checksum: 9fe858682414fe703179f4fe36c86e71f40d2693b5345c09803d7b191816a6589c5df8f1f9873bffee92893880183b95a031c86340e46b364ef1b0b7f619edbf
-  languageName: node
-  linkType: hard
-
-"nodemon@npm:^2.0.12":
+"nodemon@npm:2.0.22, nodemon@npm:^2.0.12":
   version: 2.0.22
   resolution: "nodemon@npm:2.0.22"
   dependencies:
